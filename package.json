@@ -1,0 +1,26 @@
+{
+  "name": "behancehk-svgen",
+  "version": "0.1.0",
+  "description": "git ",
+  "main": "index.html",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jade": "^1.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-watch": "^4.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thybzi/behancehk-svgen.git"
+  },
+  "author": "Evgeni Dmitriev <thybzi@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thybzi/behancehk-svgen/issues"
+  },
+  "homepage": "https://github.com/thybzi/behancehk-svgen#readme"
+}

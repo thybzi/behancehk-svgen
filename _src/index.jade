@@ -1,0 +1,72 @@
+mixin lineItem(ordinal)
+  - var values = defaults.lines[ordinal - 1] || [null, null, null]
+  li
+    input(id=('length_' + ordinal), placeholder='line length (px)', title='line length (px)', value=values[0])
+    input(id=('delay_' + ordinal), placeholder='anim delay (ms)', title='anim delay (ms)', value=values[1])
+    input(id=('count_' + ordinal), placeholder='line count', title='line count', value=values[2])
+- var lineItemsCount = 20
+-
+  var defaults = {
+    width: 1280,
+    height: 1280,
+    center: 143,
+    duration: 3000,
+    lines: [
+      [15, 1000, 64], // 1
+      [20, null, 64],
+      [10, 1500, 64],
+      [24, null, 64],
+      [54, null, 128], // 5
+      [13, 2000, 128],
+      [26, 2500, 128],
+      [35, null, 128],
+      [24, 3000, 128],
+      [44, null, 128], // 10
+      [46, null, 128],
+      [27, 3500, 256],
+      [42, 4000, 256],
+      [30, 4500, 256],
+      [40, 5000, 256], // 15
+      [47, null, 256],
+      [300, null, 256],
+    ]
+  }
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title spinning line bg pattern generator
+    script(src='runtime.js')
+    script(src='spinning.js')
+  body
+    h1 spinning line bg pattern generator
+    form
+      input(id='width', placeholder='canvas width (px)', title='canvas width (px)', value=defaults.width)
+      input(id='height', placeholder='canvas height (px)', title='canvas height (px)', value=defaults.height)
+      input(id='center', placeholder='center radius (px)', title='center radius (px)', value=defaults.center)
+      input(id='duration', placeholder='anim dur (ms)', title='anim dur (ms)', value=defaults.duration)
+      ol(style={'line-height': '1.6em'})
+        - for (var i = 1; i <= lineItemsCount; i++)
+          +lineItem(i)
+      button(type='submit') generate pattern
+      button(type='reset') reset values
+      script.
+        document.scripts[document.scripts.length - 1].parentNode.onsubmit = function(event) {
+          event.preventDefault();
+          var svgValues = {
+            width: parseInt(document.getElementById('width').value) || null,
+            height: parseInt(document.getElementById('height').value) || null,
+            center: parseInt(document.getElementById('center').value) || null,
+            duration: parseInt(document.getElementById('duration').value) || null,
+            lines: []
+          }
+          for (var i = 1; i <= #{lineItemsCount}; i++) {
+            svgValues.lines.push([
+              parseInt(document.getElementById('length_' + i).value) || null,
+              parseInt(document.getElementById('delay_' + i).value) || null,
+              parseInt(document.getElementById('count_' + i).value) || null
+            ])
+          }
+          var w = window.open('data:image/svg+xml;base64,' + btoa(template(svgValues)));
+          w.focus();
+        }

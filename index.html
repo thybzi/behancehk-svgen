@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>spinning line bg pattern generator</title>
+    <script src="runtime.js"></script>
+    <script src="spinning.js"></script>
+  </head>
+  <body>
+    <h1>spinning line bg pattern generator</h1>
+    <form>
+      <input id="width" placeholder="canvas width (px)" title="canvas width (px)" value="1280">
+      <input id="height" placeholder="canvas height (px)" title="canvas height (px)" value="1280">
+      <input id="center" placeholder="center radius (px)" title="center radius (px)" value="143">
+      <input id="duration" placeholder="anim dur (ms)" title="anim dur (ms)" value="3000">
+      <ol style="line-height:1.6em">
+        <li>
+          <input id="length_1" placeholder="line length (px)" title="line length (px)" value="15"/>
+          <input id="delay_1" placeholder="anim delay (ms)" title="anim delay (ms)" value="1000"/>
+          <input id="count_1" placeholder="line count" title="line count" value="64"/>
+        </li>
+        <li>
+          <input id="length_2" placeholder="line length (px)" title="line length (px)" value="20"/>
+          <input id="delay_2" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_2" placeholder="line count" title="line count" value="64"/>
+        </li>
+        <li>
+          <input id="length_3" placeholder="line length (px)" title="line length (px)" value="10"/>
+          <input id="delay_3" placeholder="anim delay (ms)" title="anim delay (ms)" value="1500"/>
+          <input id="count_3" placeholder="line count" title="line count" value="64"/>
+        </li>
+        <li>
+          <input id="length_4" placeholder="line length (px)" title="line length (px)" value="24"/>
+          <input id="delay_4" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_4" placeholder="line count" title="line count" value="64"/>
+        </li>
+        <li>
+          <input id="length_5" placeholder="line length (px)" title="line length (px)" value="54"/>
+          <input id="delay_5" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_5" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_6" placeholder="line length (px)" title="line length (px)" value="13"/>
+          <input id="delay_6" placeholder="anim delay (ms)" title="anim delay (ms)" value="2000"/>
+          <input id="count_6" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_7" placeholder="line length (px)" title="line length (px)" value="26"/>
+          <input id="delay_7" placeholder="anim delay (ms)" title="anim delay (ms)" value="2500"/>
+          <input id="count_7" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_8" placeholder="line length (px)" title="line length (px)" value="35"/>
+          <input id="delay_8" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_8" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_9" placeholder="line length (px)" title="line length (px)" value="24"/>
+          <input id="delay_9" placeholder="anim delay (ms)" title="anim delay (ms)" value="3000"/>
+          <input id="count_9" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_10" placeholder="line length (px)" title="line length (px)" value="44"/>
+          <input id="delay_10" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_10" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_11" placeholder="line length (px)" title="line length (px)" value="46"/>
+          <input id="delay_11" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_11" placeholder="line count" title="line count" value="128"/>
+        </li>
+        <li>
+          <input id="length_12" placeholder="line length (px)" title="line length (px)" value="27"/>
+          <input id="delay_12" placeholder="anim delay (ms)" title="anim delay (ms)" value="3500"/>
+          <input id="count_12" placeholder="line count" title="line count" value="256"/>
+        </li>
+        <li>
+          <input id="length_13" placeholder="line length (px)" title="line length (px)" value="42"/>
+          <input id="delay_13" placeholder="anim delay (ms)" title="anim delay (ms)" value="4000"/>
+          <input id="count_13" placeholder="line count" title="line count" value="256"/>
+        </li>
+        <li>
+          <input id="length_14" placeholder="line length (px)" title="line length (px)" value="30"/>
+          <input id="delay_14" placeholder="anim delay (ms)" title="anim delay (ms)" value="4500"/>
+          <input id="count_14" placeholder="line count" title="line count" value="256"/>
+        </li>
+        <li>
+          <input id="length_15" placeholder="line length (px)" title="line length (px)" value="40"/>
+          <input id="delay_15" placeholder="anim delay (ms)" title="anim delay (ms)" value="5000"/>
+          <input id="count_15" placeholder="line count" title="line count" value="256"/>
+        </li>
+        <li>
+          <input id="length_16" placeholder="line length (px)" title="line length (px)" value="47"/>
+          <input id="delay_16" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_16" placeholder="line count" title="line count" value="256"/>
+        </li>
+        <li>
+          <input id="length_17" placeholder="line length (px)" title="line length (px)" value="300"/>
+          <input id="delay_17" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_17" placeholder="line count" title="line count" value="256"/>
+        </li>
+        <li>
+          <input id="length_18" placeholder="line length (px)" title="line length (px)"/>
+          <input id="delay_18" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_18" placeholder="line count" title="line count"/>
+        </li>
+        <li>
+          <input id="length_19" placeholder="line length (px)" title="line length (px)"/>
+          <input id="delay_19" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_19" placeholder="line count" title="line count"/>
+        </li>
+        <li>
+          <input id="length_20" placeholder="line length (px)" title="line length (px)"/>
+          <input id="delay_20" placeholder="anim delay (ms)" title="anim delay (ms)"/>
+          <input id="count_20" placeholder="line count" title="line count"/>
+        </li>
+      </ol>
+      <button type="submit">generate pattern</button>
+      <button type="reset">reset values</button>
+      <script>
+        document.scripts[document.scripts.length - 1].parentNode.onsubmit = function(event) {
+          event.preventDefault();
+          var svgValues = {
+            width: parseInt(document.getElementById('width').value) || null,
+            height: parseInt(document.getElementById('height').value) || null,
+            center: parseInt(document.getElementById('center').value) || null,
+            duration: parseInt(document.getElementById('duration').value) || null,
+            lines: []
+          }
+          for (var i = 1; i <= 20; i++) {
+            svgValues.lines.push([
+              parseInt(document.getElementById('length_' + i).value) || null,
+              parseInt(document.getElementById('delay_' + i).value) || null,
+              parseInt(document.getElementById('count_' + i).value) || null
+            ])
+          }
+          var w = window.open('data:image/svg+xml;base64,' + btoa(template(svgValues)));
+          w.focus();
+        }
+      </script>
+    </form>
+  </body>
+</html>
