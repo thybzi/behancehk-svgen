@@ -1,9 +1,9 @@
 mixin lineItem(ordinal)
   - var values = defaults.lines[ordinal - 1] || [null, null, null]
   li
-    input(id=('length_' + ordinal), placeholder='line length (px)', title='line length (px)', value=values[0])
-    input(id=('delay_' + ordinal), placeholder='anim delay (ms)', title='anim delay (ms)', value=values[1])
-    input(id=('count_' + ordinal), placeholder='line count', title='line count', value=values[2])
+    input(id=('length_' + ordinal), placeholder='line length (px)', title='line length (px)', value=values[0], pattern='[0-9]+')
+    input(id=('delay_' + ordinal), placeholder='anim delay (ms)', title='anim delay (ms)', value=values[1], pattern='[0-9]+')
+    input(id=('count_' + ordinal), placeholder='line count', title='line count', value=values[2], pattern='[0-9]+')
 - var lineItemsCount = 20
 -
   var defaults = {
@@ -39,16 +39,18 @@ html
     title spinning line bg pattern generator
     script(src='runtime.js')
     script(src='spinning.js')
+    style.
+      input:invalid { background-color: rgba(255, 0, 0, 0.2); }
   body
     h1 spinning line bg pattern generator
     form
       p size:
-        input(id='width', placeholder='canvas width (px)', title='canvas width (px)', value=defaults.width)
-        input(id='height', placeholder='canvas height (px)', title='canvas height (px)', value=defaults.height)
-        input(id='center', placeholder='center radius (px)', title='center radius (px)', value=defaults.center)
+        input(id='width', placeholder='canvas width (px)', title='canvas width (px)', value=defaults.width, pattern='[0-9]+', required)
+        input(id='height', placeholder='canvas height (px)', title='canvas height (px)', value=defaults.height, pattern='[0-9]+', required)
+        input(id='center', placeholder='center radius (px)', title='center radius (px)', value=defaults.center, pattern='[0-9]+', required)
       p time:
-        input(id='spin', placeholder='spin duration (ms)', title='spin duration (ms)', value=defaults.spin)
-        input(id='rest', placeholder='rest duration (ms)', title='rest duration (ms)', value=defaults.rest)
+        input(id='spin', placeholder='spin duration (ms)', title='spin duration (ms)', value=defaults.spin, pattern='[0-9]+', required)
+        input(id='rest', placeholder='rest duration (ms)', title='rest duration (ms)', value=defaults.rest, pattern='[0-9]+', required)
       ol(style={'line-height': '1.6em'})
         - for (var i = 1; i <= lineItemsCount; i++)
           +lineItem(i)
@@ -61,9 +63,9 @@ html
           var rest = parseInt(document.getElementById('rest').value);
           var total = spin + rest;
           var svgValues = {
-            width: parseInt(document.getElementById('width').value) || null,
-            height: parseInt(document.getElementById('height').value) || null,
-            center: parseInt(document.getElementById('center').value) || null,
+            width: parseInt(document.getElementById('width').value),
+            height: parseInt(document.getElementById('height').value),
+            center: parseInt(document.getElementById('center').value),
             durationTotal: total,
             durationRatio: spin / total * 100,
             lines: []
