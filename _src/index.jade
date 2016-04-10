@@ -12,6 +12,8 @@ mixin lineItem(ordinal)
     center: 143,
     spin: 1000,
     rest: 2000,
+    linecolor: '#0057ff',
+    linewidth: 1,
     lines: [
       [15, 1000, 64], // 1
       [20, null, 64],
@@ -40,6 +42,9 @@ html
     script(src='runtime.js')
     script(src='spinning.js')
     style.
+      h1 { margin: 0; font-size: 1.6em; }
+      ol { line-height: 1.6em; }
+      input[type=number] { width: 3em; }
       input:invalid { background-color: rgba(255, 0, 0, 0.2); }
   body
     h1 spinning line bg pattern generator
@@ -51,7 +56,10 @@ html
       p time:
         input(id='spin', placeholder='spin duration (ms)', title='spin duration (ms)', value=defaults.spin, pattern='[0-9]+', required)
         input(id='rest', placeholder='rest duration (ms)', title='rest duration (ms)', value=defaults.rest, pattern='[0-9]+', required)
-      ol(style={'line-height': '1.6em'})
+      p style:
+        input(id='linecolor', type='color', title='line color', value=defaults.linecolor, required)
+        input(id='linewidth', type='number', title='line width', value=defaults.linewidth, min='1', required)
+      ol
         - for (var i = 1; i <= lineItemsCount; i++)
           +lineItem(i)
       button(type='submit') generate pattern
@@ -68,6 +76,8 @@ html
             center: parseInt(document.getElementById('center').value),
             durationTotal: total,
             durationRatio: spin / total * 100,
+            linecolor: document.getElementById('linecolor').value,
+            linewidth: parseInt(document.getElementById('linewidth').value),
             lines: []
           }
           for (var i = 1; i <= #{lineItemsCount}; i++) {

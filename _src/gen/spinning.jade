@@ -23,8 +23,8 @@ mixin drawLines(beginPoint, endPoint, count, classname)
 svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.org/2000/svg')
   style
     | line {
-    |   stroke: #0057ff;
-    |   stroke-width: 1px;
+    |   stroke: #{linecolor};
+    |   stroke-width: #{linewidth}px;
     |   -webkit-transform-origin: 50% 50%;
     |   transform-origin: 50% 50%;
     | }

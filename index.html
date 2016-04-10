@@ -5,7 +5,12 @@
     <title>spinning line bg pattern generator</title>
     <script src="runtime.js"></script>
     <script src="spinning.js"></script>
-    <style>input:invalid { background-color: rgba(255, 0, 0, 0.2); }</style>
+    <style>
+      h1 { margin: 0; font-size: 1.6em; }
+      ol { line-height: 1.6em; }
+      input[type=number] { width: 3em; }
+      input:invalid { background-color: rgba(255, 0, 0, 0.2); }
+    </style>
   </head>
   <body>
     <h1>spinning line bg pattern generator</h1>
@@ -19,7 +24,11 @@
         <input id="spin" placeholder="spin duration (ms)" title="spin duration (ms)" value="1000" pattern="[0-9]+" required>
         <input id="rest" placeholder="rest duration (ms)" title="rest duration (ms)" value="2000" pattern="[0-9]+" required>
       </p>
-      <ol style="line-height:1.6em">
+      <p>style:
+        <input id="linecolor" type="color" title="line color" value="#0057ff" required>
+        <input id="linewidth" type="number" title="line width" value="1" min="1" required>
+      </p>
+      <ol>
         <li>
           <input id="length_1" placeholder="line length (px)" title="line length (px)" value="15" pattern="[0-9]+"/>
           <input id="delay_1" placeholder="anim delay (ms)" title="anim delay (ms)" value="1000" pattern="[0-9]+"/>
@@ -135,6 +144,8 @@
             center: parseInt(document.getElementById('center').value),
             durationTotal: total,
             durationRatio: spin / total * 100,
+            linecolor: document.getElementById('linecolor').value,
+            linewidth: parseInt(document.getElementById('linewidth').value),
             lines: []
           }
           for (var i = 1; i <= 20; i++) {
