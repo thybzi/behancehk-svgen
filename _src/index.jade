@@ -10,7 +10,8 @@ mixin lineItem(ordinal)
     width: 1280,
     height: 1280,
     center: 143,
-    duration: 3000,
+    spin: 1000,
+    rest: 2000,
     lines: [
       [15, 1000, 64], // 1
       [20, null, 64],
@@ -41,10 +42,13 @@ html
   body
     h1 spinning line bg pattern generator
     form
-      input(id='width', placeholder='canvas width (px)', title='canvas width (px)', value=defaults.width)
-      input(id='height', placeholder='canvas height (px)', title='canvas height (px)', value=defaults.height)
-      input(id='center', placeholder='center radius (px)', title='center radius (px)', value=defaults.center)
-      input(id='duration', placeholder='anim dur (ms)', title='anim dur (ms)', value=defaults.duration)
+      p size:
+        input(id='width', placeholder='canvas width (px)', title='canvas width (px)', value=defaults.width)
+        input(id='height', placeholder='canvas height (px)', title='canvas height (px)', value=defaults.height)
+        input(id='center', placeholder='center radius (px)', title='center radius (px)', value=defaults.center)
+      p time:
+        input(id='spin', placeholder='spin duration (ms)', title='spin duration (ms)', value=defaults.spin)
+        input(id='rest', placeholder='rest duration (ms)', title='rest duration (ms)', value=defaults.rest)
       ol(style={'line-height': '1.6em'})
         - for (var i = 1; i <= lineItemsCount; i++)
           +lineItem(i)
@@ -53,11 +57,15 @@ html
       script.
         document.scripts[document.scripts.length - 1].parentNode.onsubmit = function(event) {
           event.preventDefault();
+          var spin = parseInt(document.getElementById('spin').value);
+          var rest = parseInt(document.getElementById('rest').value);
+          var total = spin + rest;
           var svgValues = {
             width: parseInt(document.getElementById('width').value) || null,
             height: parseInt(document.getElementById('height').value) || null,
             center: parseInt(document.getElementById('center').value) || null,
-            duration: parseInt(document.getElementById('duration').value) || null,
+            durationTotal: total,
+            durationRatio: spin / total * 100,
             lines: []
           }
           for (var i = 1; i <= #{lineItemsCount}; i++) {

@@ -32,7 +32,7 @@ svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.
     |   0% {
     |     -webkit-transform: rotate(0deg);
     |   }
-    |   33%, 100% {
+    |   #{durationRatio}%, 100% {
     |     -webkit-transform: rotate(180deg);
     |   }
     | }
@@ -40,19 +40,19 @@ svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.
     |   0% {
     |     transform: rotate(0deg);
     |   }
-    |   33%, 100% {
+    |   #{durationRatio}%, 100% {
     |     transform: rotate(180deg);
     |   }
     | }
     | .#{animatedLinesClassnames.join(', .')} {
     |   /* Safari */
     |   -webkit-animation-name: rotation;
-    |   -webkit-animation-duration: #{duration}ms;
+    |   -webkit-animation-duration: #{durationTotal}ms;
     |   -webkit-animation-timing-function: linear;
     |   -webkit-animation-iteration-count: infinite;
     |   /* Chrome, IE, Firefox */
     |   animation-name: rotation;
-    |   animation-duration: #{duration}ms;
+    |   animation-duration: #{durationTotal}ms;
     |   animation-timing-function: linear;
     |   animation-iteration-count: infinite;
     | }

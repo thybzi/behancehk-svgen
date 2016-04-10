@@ -9,10 +9,15 @@
   <body>
     <h1>spinning line bg pattern generator</h1>
     <form>
-      <input id="width" placeholder="canvas width (px)" title="canvas width (px)" value="1280">
-      <input id="height" placeholder="canvas height (px)" title="canvas height (px)" value="1280">
-      <input id="center" placeholder="center radius (px)" title="center radius (px)" value="143">
-      <input id="duration" placeholder="anim dur (ms)" title="anim dur (ms)" value="3000">
+      <p>size:
+        <input id="width" placeholder="canvas width (px)" title="canvas width (px)" value="1280">
+        <input id="height" placeholder="canvas height (px)" title="canvas height (px)" value="1280">
+        <input id="center" placeholder="center radius (px)" title="center radius (px)" value="143">
+      </p>
+      <p>time:
+        <input id="spin" placeholder="spin duration (ms)" title="spin duration (ms)" value="1000">
+        <input id="rest" placeholder="rest duration (ms)" title="rest duration (ms)" value="2000">
+      </p>
       <ol style="line-height:1.6em">
         <li>
           <input id="length_1" placeholder="line length (px)" title="line length (px)" value="15"/>
@@ -120,11 +125,15 @@
       <script>
         document.scripts[document.scripts.length - 1].parentNode.onsubmit = function(event) {
           event.preventDefault();
+          var spin = parseInt(document.getElementById('spin').value);
+          var rest = parseInt(document.getElementById('rest').value);
+          var total = spin + rest;
           var svgValues = {
             width: parseInt(document.getElementById('width').value) || null,
             height: parseInt(document.getElementById('height').value) || null,
             center: parseInt(document.getElementById('center').value) || null,
-            duration: parseInt(document.getElementById('duration').value) || null,
+            durationTotal: total,
+            durationRatio: spin / total * 100,
             lines: []
           }
           for (var i = 1; i <= 20; i++) {
