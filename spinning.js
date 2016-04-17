@@ -2,7 +2,7 @@ function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (center, durationRatio, durationTotal, height, linecolor, lines, linewidth, undefined, width) {
+;var locals_for_with = (locals || {});(function (durationRatio, durationTotal, height, linecolor, lines, linewidth, undefined, width) {
 var canvasWidth = width
 var canvasHeight = height
 var canvasCenterX = canvasWidth / 2
@@ -11,9 +11,9 @@ var animatedLines = [];
 var animatedLinesClassnames = [];
 lines.forEach(function (lineItem, i) {
   var classname = 'line' + (i + 1);
-  lines[i].push(classname);
-  if (typeof lineItem[1] === 'number') {
-    animatedLines.push([classname, lineItem[1]]);
+  lines[i].classname = classname;
+  if (typeof lineItem.delay === 'number') {
+    animatedLines.push({classname: classname, delay: lineItem.delay});
     animatedLinesClassnames.push(classname);
   }
 });
@@ -33,7 +33,7 @@ buf.push("<svg" + (jade.attr("width", canvasWidth, true, false)) + (jade.attr("h
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var lineItem = $$obj[$index];
 
-buf.push("." + (jade.escape((jade_interp = lineItem[0]) == null ? '' : jade_interp)) + " {\n  -webkit-animation-delay: " + (jade.escape((jade_interp = lineItem[1]) == null ? '' : jade_interp)) + "ms;\n  animation-delay: " + (jade.escape((jade_interp = lineItem[1]) == null ? '' : jade_interp)) + "ms;\n}");
+buf.push("." + (jade.escape((jade_interp = lineItem.classname) == null ? '' : jade_interp)) + " {\n  -webkit-animation-delay: " + (jade.escape((jade_interp = lineItem.delay) == null ? '' : jade_interp)) + "ms;\n  animation-delay: " + (jade.escape((jade_interp = lineItem.delay) == null ? '' : jade_interp)) + "ms;\n}");
     }
 
   } else {
@@ -41,14 +41,14 @@ buf.push("." + (jade.escape((jade_interp = lineItem[0]) == null ? '' : jade_inte
     for (var $index in $$obj) {
       $$l++;      var lineItem = $$obj[$index];
 
-buf.push("." + (jade.escape((jade_interp = lineItem[0]) == null ? '' : jade_interp)) + " {\n  -webkit-animation-delay: " + (jade.escape((jade_interp = lineItem[1]) == null ? '' : jade_interp)) + "ms;\n  animation-delay: " + (jade.escape((jade_interp = lineItem[1]) == null ? '' : jade_interp)) + "ms;\n}");
+buf.push("." + (jade.escape((jade_interp = lineItem.classname) == null ? '' : jade_interp)) + " {\n  -webkit-animation-delay: " + (jade.escape((jade_interp = lineItem.delay) == null ? '' : jade_interp)) + "ms;\n  animation-delay: " + (jade.escape((jade_interp = lineItem.delay) == null ? '' : jade_interp)) + "ms;\n}");
     }
 
   }
 }).call(this);
 
 buf.push("</style>");
-var beginPoint = center
+var beginPoint = 0
 var endPoint
 // iterate lines
 ;(function(){
@@ -58,10 +58,11 @@ var endPoint
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var lineItem = $$obj[$index];
 
-if ( lineItem[2])
+if ( lineItem.count)
 {
-endPoint = beginPoint + lineItem[0]
-jade_mixins["drawLines"](beginPoint, endPoint, lineItem[2], lineItem[3]);
+beginPoint += (lineItem.gap || 0)
+endPoint = beginPoint + lineItem.length
+jade_mixins["drawLines"](beginPoint, endPoint, lineItem.count, lineItem.classname);
 beginPoint = endPoint
 }
     }
@@ -71,10 +72,11 @@ beginPoint = endPoint
     for (var $index in $$obj) {
       $$l++;      var lineItem = $$obj[$index];
 
-if ( lineItem[2])
+if ( lineItem.count)
 {
-endPoint = beginPoint + lineItem[0]
-jade_mixins["drawLines"](beginPoint, endPoint, lineItem[2], lineItem[3]);
+beginPoint += (lineItem.gap || 0)
+endPoint = beginPoint + lineItem.length
+jade_mixins["drawLines"](beginPoint, endPoint, lineItem.count, lineItem.classname);
 beginPoint = endPoint
 }
     }
@@ -82,5 +84,5 @@ beginPoint = endPoint
   }
 }).call(this);
 
-buf.push("</svg>");}.call(this,"center" in locals_for_with?locals_for_with.center:typeof center!=="undefined"?center:undefined,"durationRatio" in locals_for_with?locals_for_with.durationRatio:typeof durationRatio!=="undefined"?durationRatio:undefined,"durationTotal" in locals_for_with?locals_for_with.durationTotal:typeof durationTotal!=="undefined"?durationTotal:undefined,"height" in locals_for_with?locals_for_with.height:typeof height!=="undefined"?height:undefined,"linecolor" in locals_for_with?locals_for_with.linecolor:typeof linecolor!=="undefined"?linecolor:undefined,"lines" in locals_for_with?locals_for_with.lines:typeof lines!=="undefined"?lines:undefined,"linewidth" in locals_for_with?locals_for_with.linewidth:typeof linewidth!=="undefined"?linewidth:undefined,"undefined" in locals_for_with?locals_for_with.undefined:typeof undefined!=="undefined"?undefined:undefined,"width" in locals_for_with?locals_for_with.width:typeof width!=="undefined"?width:undefined));;return buf.join("");
+buf.push("</svg>");}.call(this,"durationRatio" in locals_for_with?locals_for_with.durationRatio:typeof durationRatio!=="undefined"?durationRatio:undefined,"durationTotal" in locals_for_with?locals_for_with.durationTotal:typeof durationTotal!=="undefined"?durationTotal:undefined,"height" in locals_for_with?locals_for_with.height:typeof height!=="undefined"?height:undefined,"linecolor" in locals_for_with?locals_for_with.linecolor:typeof linecolor!=="undefined"?linecolor:undefined,"lines" in locals_for_with?locals_for_with.lines:typeof lines!=="undefined"?lines:undefined,"linewidth" in locals_for_with?locals_for_with.linewidth:typeof linewidth!=="undefined"?linewidth:undefined,"undefined" in locals_for_with?locals_for_with.undefined:typeof undefined!=="undefined"?undefined:undefined,"width" in locals_for_with?locals_for_with.width:typeof width!=="undefined"?width:undefined));;return buf.join("");
 }

@@ -1,37 +1,37 @@
 mixin lineItem(ordinal)
-  - var values = defaults.lines[ordinal - 1] || [null, null, null]
+  - var values = defaults.lines[ordinal - 1] || [null, null, null, null]
   li
-    input(id=('length_' + ordinal), placeholder='line length (px)', title='line length (px)', value=values[0], pattern='[0-9]+')
-    input(id=('delay_' + ordinal), placeholder='anim delay (ms)', title='anim delay (ms)', value=values[1], pattern='[0-9]+')
-    input(id=('count_' + ordinal), placeholder='line count', title='line count', value=values[2], pattern='[0-9]+')
+    input(id=('gap_' + ordinal), placeholder='gap before (px)', title='gap before (px)', value=values[0], pattern='[0-9]+')
+    input(id=('length_' + ordinal), placeholder='line length (px)', title='line length (px)', value=values[1], pattern='[0-9]+')
+    input(id=('delay_' + ordinal), placeholder='anim delay (ms)', title='anim delay (ms)', value=values[2], pattern='[0-9]+')
+    input(id=('count_' + ordinal), placeholder='line count', title='line count', value=values[3], pattern='[0-9]+')
 - var lineItemsCount = 20
 -
   var defaults = {
     width: 1280,
     height: 1280,
-    center: 143,
     spin: 1000,
     rest: 2000,
     linecolor: '#0057ff',
     linewidth: 1,
     lines: [
-      [15, 1000, 64], // 1
-      [20, null, 64],
-      [10, 1500, 64],
-      [24, null, 64],
-      [54, null, 128], // 5
-      [13, 2000, 128],
-      [26, 2500, 128],
-      [35, null, 128],
-      [24, 3000, 128],
-      [44, null, 128], // 10
-      [46, null, 128],
-      [27, 3500, 256],
-      [42, 4000, 256],
-      [30, 4500, 256],
-      [40, 5000, 256], // 15
-      [47, null, 256],
-      [300, null, 256],
+      [143, 15, 1000, 64], // 1
+      [null, 20, null, 64],
+      [null, 10, 1500, 64],
+      [null, 24, null, 64],
+      [null, 54, null, 128], // 5
+      [null, 13, 2000, 128],
+      [null, 26, 2500, 128],
+      [null, 35, null, 128],
+      [null, 24, 3000, 128],
+      [null, 44, null, 128], // 10
+      [null, 46, null, 128],
+      [null, 27, 3500, 256],
+      [null, 42, 4000, 256],
+      [null, 30, 4500, 256],
+      [null, 40, 5000, 256], // 15
+      [null, 47, null, 256],
+      [null, 300, null, 256],
     ]
   }
 doctype html
@@ -52,7 +52,6 @@ html
       p size:
         input(id='width', placeholder='canvas width (px)', title='canvas width (px)', value=defaults.width, pattern='[0-9]+', required)
         input(id='height', placeholder='canvas height (px)', title='canvas height (px)', value=defaults.height, pattern='[0-9]+', required)
-        input(id='center', placeholder='center radius (px)', title='center radius (px)', value=defaults.center, pattern='[0-9]+', required)
       p time:
         input(id='spin', placeholder='spin duration (ms)', title='spin duration (ms)', value=defaults.spin, pattern='[0-9]+', required)
         input(id='rest', placeholder='rest duration (ms)', title='rest duration (ms)', value=defaults.rest, pattern='[0-9]+', required)
@@ -73,7 +72,6 @@ html
           var svgValues = {
             width: parseInt(document.getElementById('width').value),
             height: parseInt(document.getElementById('height').value),
-            center: parseInt(document.getElementById('center').value),
             durationTotal: total,
             durationRatio: spin / total * 100,
             linecolor: document.getElementById('linecolor').value,
@@ -81,11 +79,12 @@ html
             lines: []
           }
           for (var i = 1; i <= #{lineItemsCount}; i++) {
-            svgValues.lines.push([
-              parseInt(document.getElementById('length_' + i).value) || null,
-              parseInt(document.getElementById('delay_' + i).value) || null,
-              parseInt(document.getElementById('count_' + i).value) || null
-            ])
+            svgValues.lines.push({
+              gap: parseInt(document.getElementById('gap_' + i).value) || null,
+              length: parseInt(document.getElementById('length_' + i).value) || null,
+              delay: parseInt(document.getElementById('delay_' + i).value) || null,
+              count: parseInt(document.getElementById('count_' + i).value) || null
+            });
           }
           var w = window.open('data:image/svg+xml;base64,' + btoa(template(svgValues)));
           w.focus();
