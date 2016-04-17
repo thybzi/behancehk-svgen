@@ -22,6 +22,7 @@
       <p>time:
         <input id="spin" placeholder="spin duration (ms)" title="spin duration (ms)" value="1000" pattern="[0-9]+" required>
         <input id="rest" placeholder="rest duration (ms)" title="rest duration (ms)" value="2000" pattern="[0-9]+" required>
+        <input id="easing" placeholder="anim easing" title="anim easing" value="ease-out" required>
       </p>
       <p>style:
         <input id="linecolor" type="color" title="line color" value="#0057ff" required>
@@ -162,6 +163,7 @@
             height: parseInt(document.getElementById('height').value),
             durationTotal: total,
             durationRatio: spin / total * 100,
+            easing: document.getElementById('easing').value,
             linecolor: document.getElementById('linecolor').value,
             linewidth: parseInt(document.getElementById('linewidth').value),
             lines: []
