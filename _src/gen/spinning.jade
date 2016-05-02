@@ -4,29 +4,41 @@
 - var canvasCenterY = canvasHeight / 2
 -
   var animatedLines = [];
+  var animatedClassnames = [];
   var animatedLinesClassnames = [];
+  var animatedGroupsClassnames = [];
   lines.forEach(function (lineItem, i) {
-    var classname = 'line' + (i + 1);
-    lines[i].classname = classname;
+    var ordinal = i + 1;
+    var lineClassname = 'line' + ordinal;
+    var groupClassname = 'group' + ordinal;
+    lines[i].lineClassname = lineClassname;
+    lines[i].groupClassname = groupClassname;
     if (typeof lineItem.delay === 'number') {
-      animatedLines.push({classname: classname, delay: lineItem.delay});
-      animatedLinesClassnames.push(classname);
+      animatedLines.push({lineClassname: lineClassname, groupClassname: groupClassname, delay: lineItem.delay});
+      animatedLinesClassnames.push(lineClassname);
+      animatedGroupsClassnames.push(groupClassname);
+      animatedClassnames.push(lineClassname);
+      animatedClassnames.push(groupClassname);
     }
   });
 
-mixin drawLines(beginPoint, endPoint, count, classname)
+mixin drawLines(beginPoint, endPoint, count, lineClassname, groupClassname)
   - var rotateStep = 360 / count
   - var classlist
-  - for (var i = 0; i < count; i++)
-    - classlist = classname + ' ' + ((i % 2) ? 'ccw' : 'cw')
-    g(transform='rotate(' + (i * rotateStep) + ', ' + canvasCenterX + ', ' + canvasCenterY + ')')
-      line(class=classlist, x1=canvasCenterX, y1=(canvasCenterY + beginPoint), x2=canvasCenterX, y2=(canvasCenterY + endPoint))/
+  g(class=groupClassname)
+    - for (var i = 0; i < count; i++)
+      - classlist = lineClassname + ' ' + ((i % 2) ? 'ccw' : 'cw')
+      g(transform='rotate(' + (i * rotateStep) + ', ' + canvasCenterX + ', ' + canvasCenterY + ')')
+
+        line(class=classlist, x1=canvasCenterX, y1=(canvasCenterY + beginPoint), x2=canvasCenterX, y2=(canvasCenterY + endPoint))/
 
 svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.org/2000/svg')
   style
     | line {
     |   stroke: #{linecolor};
     |   stroke-width: #{linewidth}px;
+    | }
+    | line, g {
     |   -webkit-transform-origin: 50% 50%;
     |   transform-origin: 50% 50%;
     | }
@@ -62,7 +74,23 @@ svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.
     |     transform: rotate(-180deg);
     |   }
     | }
-    | .#{animatedLinesClassnames.join(', .')} {
+    | @-webkit-keyframes shift-cw {
+    |   0% {
+    |     -webkit-transform: rotate(0deg);
+    |   }
+    |   #{durationRatio}%, 100% {
+    |     -webkit-transform: rotate(-#{360 / 64}deg);
+    |   }
+    | }
+    | @keyframes shift-cw {
+    |   0% {
+    |     transform: rotate(0deg);
+    |   }
+    |   #{durationRatio}%, 100% {
+    |     transform: rotate(-#{360 / 64}deg);
+    |   }
+    | }
+    | .#{animatedClassnames.join(', .')} {
     |   /* Safari */
     |   -webkit-animation-name: rotate-ccw;
     |   -webkit-animation-duration: #{durationTotal}ms;
@@ -86,8 +114,18 @@ svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.
     |   /* Chrome, IE, Firefox */
     |   animation-name: rotate-cw;
     | }
+    | .#{animatedGroupsClassnames.join(', ')} {
+    |   /* Safari */
+    |   -webkit-animation-name: shift-cw;
+    |   /* Chrome, IE, Firefox */
+    |   animation-name: shift-cw;
+    | }
     each lineItem in animatedLines
-      | .#{lineItem.classname} {
+      | .#{lineItem.lineClassname} {
+      |   -webkit-animation-delay: #{lineItem.delay}ms;
+      |   animation-delay: #{lineItem.delay}ms;
+      | }
+      | .#{lineItem.groupClassname} {
       |   -webkit-animation-delay: #{lineItem.delay}ms;
       |   animation-delay: #{lineItem.delay}ms;
       | }
@@ -98,5 +136,5 @@ svg(width=canvasWidth, height=canvasHeight, version='1.1', xmlns='http://www.w3.
     if lineItem.count
       - beginPoint += (lineItem.gap || 0)
       - endPoint = beginPoint + lineItem.length
-      +drawLines(beginPoint, endPoint, lineItem.count, lineItem.classname)
+      +drawLines(beginPoint, endPoint, lineItem.count, lineItem.lineClassname, lineItem.groupClassname)
       - beginPoint = endPoint
